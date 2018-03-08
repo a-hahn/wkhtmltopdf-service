@@ -22,9 +22,9 @@ sudo docker build -t wkhtmltopdf-service .
 ```
 Run the image
 ```
-sudo docker run --name wkhtmltopdf wkhtmltopdf
+sudo docker run -p 3000:3000 --name wkhtmltopdf wkhtmltopdf-service
 ```
-Ports are mapped by default to 3000. Now just send your pdf conversion requests to
+Now just send your pdf conversion requests to
 ```
 http:/<ip_of_your_host>:3000
 ```

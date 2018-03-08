@@ -15,10 +15,9 @@ RUN apt-get update && \
     cp wkhtmltox/lib/* /usr/local/lib/ && \
     rm wkhtmltox-${WKHTML_VERSION}_linux-generic-amd64.tar.xz
 
-EXPOSE 3000:3000
+EXPOSE 3000
 
 # @see https://spring.io/guides/gs/spring-boot-docker/
-# docker build -t wkhtmltopdf .
+COPY  target/wkhtmltopdf.jar .
 VOLUME /tmp
-WORKDIR target
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","wkhtmltopdf.jar"]
