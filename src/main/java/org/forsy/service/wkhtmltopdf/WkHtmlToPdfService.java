@@ -257,7 +257,6 @@ public class WkHtmlToPdfService {
             }
             argList.add(keyValue.getKey().trim());
             Object val = keyValue.getValue();
-            // no support for nested options as there are no use cases in the wkhtmltopdf docs
             if (val instanceof String) {
                 String value = (String) val;
                 if (!isSingleArgument(value)) {
