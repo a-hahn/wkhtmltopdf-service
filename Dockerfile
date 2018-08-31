@@ -15,9 +15,12 @@ RUN apt-get update && \
     cp wkhtmltox/lib/* /usr/local/lib/ && \
     rm wkhtmltox-${WKHTML_VERSION}_linux-generic-amd64.tar.xz
 
+# Prepare timezone settings to be overriden by runtime variable e.g. -e TZ='Europe/Berlin'
+ENV TZ=UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 EXPOSE 3000
 
 # @see https://spring.io/guides/gs/spring-boot-docker/
 COPY  target/wkhtmltopdf.jar .
-VOLUME /tmp
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","wkhtmltopdf.jar"]

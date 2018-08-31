@@ -22,7 +22,9 @@ sudo docker build -t wkhtmltopdf-service .
 ```
 Run the image
 ```
-sudo docker run -p 3000:3000 --name wkhtmltopdf wkhtmltopdf-service
+sudo docker run --name wkhtmltopdf \
+-d -p 3000:3000 -e TZ='Europe/Berlin' --tmpfs /tmp \
+ wkhtmltopdf-service
 ```
 Now just send your pdf conversion requests to
 ```
