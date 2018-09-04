@@ -89,7 +89,10 @@ public class WkHtmlToPdfService {
             byteCount = responseBuffer.length;
 
             int exitCode = process.waitFor();
-            if (exitCode != 0) {
+            if (exitCode == 1) {
+                logger.warn("PDF #" + serialNum + " terminated with error code '1' which is undocumented but probably ok, cmd: '" +  cmdParms.toString() + "'");
+            }
+            if (exitCode > 1) {
                 throw new WkHtmlToPdfException(exitCode, serialNum, errorWriter, cmdParms.toString());
             }
             errorGobbler.interrupt();
