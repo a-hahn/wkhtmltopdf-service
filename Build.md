@@ -24,7 +24,7 @@ Run the image
 ```
 sudo docker run --name wkhtmltopdf \
 -d -p 3000:3000 -e TZ='Europe/Berlin' --tmpfs /tmp \
- a-hahn/wkhtmltopdf-service
+--restart=always a-hahn/wkhtmltopdf-service
 ```
 Now just send your pdf conversion requests to
 ```
