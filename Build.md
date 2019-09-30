@@ -18,13 +18,13 @@ For deployment with docker simply use the Dockerfile which installs all required
 Creating a new docker image from a spring-boot .jar file:
 ```
 cd wkhtmltopdf-service
-sudo docker build -t wkhtmltopdf-service .
+sudo docker build -t a-hahn/wkhtmltopdf-service .
 ```
 Run the image
 ```
 sudo docker run --name wkhtmltopdf \
 -d -p 3000:3000 -e TZ='Europe/Berlin' --tmpfs /tmp \
- wkhtmltopdf-service
+ a-hahn/wkhtmltopdf-service
 ```
 Now just send your pdf conversion requests to
 ```
