@@ -5,12 +5,6 @@
 cd
 git clone https://github.com/a-hahn/wkhtmltopdf-service.git
 ```
-If you don't wan't to modify the source there is the compiled `wkhtmltopdf.jar` in the `target` folder. This file is built with the spring-boot ecosystem and contains all the necessary dependencies including an embedded tomcat runtime.
-You can simply run it by executing
-```
-java -jar wkthmltopdf.jar
-```
-Note that wkhtmltopdf must be already installed. 
 
 ## Docker deployment
 
@@ -43,4 +37,12 @@ sudo docker start wkhmtltopdf
 Once the container is running its possible to inspect log
 ```
 sudo docker exec -it wkhtmltopdf tailf wkhtmltopdf.log
+```
+
+## Usage without Docker
+
+For ad-hoc usage where wkhtmltopdf is already installed there is a compiled `wkhtmltopdf.jar` in the `target` folder. This file is built with the spring-boot ecosystem and contains all the necessary dependencies including an embedded tomcat runtime.
+You can simply run it by executing
+```
+java -jar wkthmltopdf.jar
 ```
