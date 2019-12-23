@@ -149,7 +149,7 @@ public class WkHtmlToPdfService {
      */
     public void prepareErrorResponse(HttpServletResponse res, int errStatus, Throwable ex) {
         if (res.isCommitted()) {
-            logger.error("Response already commited, Cannot return error to caller", ex);
+            logger.error("Response already commited, Cannot return error '" + errStatus + "' to caller", ex);
         } else {
             res.reset();
             res.setContentType("text/plain;charset=UTF-8");
