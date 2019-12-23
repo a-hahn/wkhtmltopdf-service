@@ -66,6 +66,10 @@ The service returns these http status codes:
 
 [Build instructions](Build.md)
 
+## Release history
+
+0.0.3 Improved wkhtml error logging
+
 ## TODO
 
 Sorry - we have no testcases yet :(
