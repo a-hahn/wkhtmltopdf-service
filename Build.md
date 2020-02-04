@@ -1,25 +1,35 @@
 # Build and Run instructions
 
-## Clone the github repo
+## Clone and build the github repo
 ```
-cd
 git clone https://github.com/a-hahn/wkhtmltopdf-service.git
 ```
-
-## Docker deployment
 
 For deployment with docker simply use the Dockerfile which installs all required components *including wkhtmltopdf*. 
 Creating a new docker image from a spring-boot .jar file:
 ```
 cd wkhtmltopdf-service
-sudo docker build -t a-hahn/wkhtmltopdf-service .
+sudo docker build -t <your-image-name> .
 ```
+
+**OR**
+
+## pull from github packages
+
+```
+sudo docker pull docker.pkg.github.com/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:1.0.0
+```
+
+## Docker deployment
 Run the image
 ```
 sudo docker run --name wkhtmltopdf \
 -d -p 3000:3000 -e TZ='Europe/Berlin' --tmpfs /tmp \
---restart=always a-hahn/wkhtmltopdf-service
+--restart=always \
+docker.pkg.github.com/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:latest
 ```
+(Replace docker image name with your own <your-image-name> in case you build yourself)
+
 Now just send your pdf conversion requests to
 ```
 http:/<ip_of_your_host>:3000
