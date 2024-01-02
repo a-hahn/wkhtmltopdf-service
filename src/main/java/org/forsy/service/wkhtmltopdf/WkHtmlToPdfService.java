@@ -82,7 +82,7 @@ public class WkHtmlToPdfService {
             logger.info("PDF #" + serialNum + " with '" + url + "'");
             logger.debug("PDF #" +serialNum + " cmd: " +  cmdParms.toString());
             process = pb.start();
-            ErrorGobbler errorGobbler = new ErrorGobbler(process.getErrorStream(), errorWriter);
+            ErrorGobbler errorGobbler = new ErrorGobbler(process.getErrorStream(), errorWriter, serialNum);
             errorGobbler.start();
             // As the errorStream is written async we need to use a buffer, else response is commited and we can't write header anymore
             responseBuffer = FileCopyUtils.copyToByteArray(process.getInputStream());
@@ -149,7 +149,7 @@ public class WkHtmlToPdfService {
      */
     public void prepareErrorResponse(HttpServletResponse res, int errStatus, Throwable ex) {
         if (res.isCommitted()) {
-            logger.error("Response already commited, Cannot return error to caller", ex);
+            logger.error("Response already commited, Cannot return error '" + errStatus + "' to caller", ex);
         } else {
             res.reset();
             res.setContentType("text/plain;charset=UTF-8");
@@ -305,11 +305,13 @@ public class WkHtmlToPdfService {
     public class ErrorGobbler extends Thread{
         InputStream is;
         PrintWriter writer;
+        long serialNum;
 
-        public ErrorGobbler(InputStream is, Writer writer)
+        public ErrorGobbler(InputStream is, Writer writer, long serialNum)
         {
             this.is = is;
             this.writer = new PrintWriter(writer,true);
+            this.serialNum = serialNum;
         }
 
         public void run()
@@ -319,6 +321,14 @@ public class WkHtmlToPdfService {
                 InputStreamReader isr = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(isr);
                 String line=null;
+                while ( (line = br.readLine()) != null) {
+                    String errStr = "PDF #" + serialNum + " " + line;
+                    if (line.startsWith("Exit with code")) {
+                        logger.warn(errStr);
+                    } else {
+                        logger.debug(errStr);
+                    }
+                }
                 while ( (line = br.readLine()) != null)
                     writer.println(line);
             } catch (Exception ioe) {
