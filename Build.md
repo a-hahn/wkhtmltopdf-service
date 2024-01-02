@@ -17,7 +17,7 @@ sudo docker build -t <your-image-name> .
 ## pull from github packages
 
 ```
-sudo docker pull docker.pkg.github.com/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:1.0.0
+sudo docker pull ghcr.io/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:1.0.0
 ```
 
 ## Docker deployment
@@ -26,7 +26,7 @@ Run the image
 sudo docker run --name wkhtmltopdf \
 -d -p 3000:3000 -e TZ='Europe/Berlin' --tmpfs /tmp \
 --restart=always \
-docker.pkg.github.com/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:latest
+ghcr.io/a-hahn/wkhtmltopdf-service/wkhtmltopdf-service:latest
 ```
 (Replace docker image name with your own <your-image-name> in case you build yourself)
 
